@@ -1,0 +1,70 @@
+import React from 'react';
+import '../App.css';
+import { IoAirplaneOutline } from "react-icons/io5";
+import { CiSearch } from "react-icons/ci";
+import { useSearch } from '../hooks/useSearch';
+import { SearchOverlay } from './SearchOverlay';
+
+export const Navbar = () => {
+  const { isSearchOpen, openSearch, closeSearch, handleSearch } = useSearch();
+
+  const goToHomepage = () => {
+    window.location.href = '/';
+  };
+
+  return (
+    <>
+      <nav className="bg-gradient-to-r from-blue-400 to-cyan-500 text-white shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 relative">
+          <div className="flex items-center h-20 w-full">
+            
+            {/* Logo - now clickable */}
+            <div 
+              onClick={goToHomepage}
+              className="flex-shrink-0 absolute -left-72 flex items-center cursor-pointer hover:opacity-80 transition-opacity"
+              style={{ userSelect: 'none' }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && goToHomepage()}
+            >
+              <p className="font-bold text-4xl underline decoration-blue-800">Zentro</p>
+              <IoAirplaneOutline size={40} className="mx-2 text-blue-800" />
+              <p className="font-bold text-4xl underline decoration-blue-800">Travel Guide</p>
+            </div>
+            
+            {/* Navigation - centered */}
+            <div className="w-full flex justify-center">
+              <ul className="flex space-x-8">
+                <li><a href="#" className="hover:text-blue-800 transition font-medium text-lg">Europe</a></li>
+                <li><a href="#" className="hover:text-blue-800 transition font-medium text-lg">South America</a></li>
+                <li><a href="#" className="hover:text-blue-800 transition font-medium text-lg">North America</a></li>
+                <li><a href="#" className="hover:text-blue-800 transition font-medium text-lg">Africa</a></li>
+                <li><a href="#" className="hover:text-blue-800 transition font-medium text-lg">Asia</a></li>
+                <li><a href="#" className="hover:text-blue-800 transition font-medium text-lg">Australia</a></li>
+              </ul>
+            </div>
+
+            {/* Search Icon - right positioned */}
+            <div className="absolute -right-72">
+              <button
+                onClick={openSearch}
+                className="text-white hover:text-blue-800 transition p-2"
+                aria-label="Open search"
+              >
+                <CiSearch size={28} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <SearchOverlay 
+        isOpen={isSearchOpen}
+        onClose={closeSearch}
+        onSearch={handleSearch}
+      />
+    </>
+  );
+};
+
+export default Navbar;
