@@ -1,0 +1,24 @@
+import { useState } from 'react';
+
+export const useSearch = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const openSearch = () => setIsOpen(true);
+  const closeSearch = () => setIsOpen(false);
+
+  const handleSearch = (query: string) => {
+    console.log('Executing search for:', query);
+    setSearchQuery(query);
+    // Add your actual search logic here (API calls, filtering, etc.)
+    closeSearch();
+  };
+
+  return {
+    isSearchOpen: isOpen,
+    openSearch,
+    closeSearch,
+    handleSearch,
+    searchQuery
+  };
+};
